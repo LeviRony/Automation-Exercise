@@ -1,0 +1,1 @@
+Serious/Critical issues found: 3 (strict mode OFF — test NOT failed)
