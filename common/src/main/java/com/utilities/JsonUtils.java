@@ -1,0 +1,34 @@
+package com.utilities;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+public class JsonUtils {
+
+    private static final Gson GSON = new GsonBuilder()
+            .setPrettyPrinting()
+            .create();
+
+    /**
+     * Pretty print any JSON string.
+     *
+     * @param json Raw JSON string
+     * @return Pretty formatted JSON
+     */
+    public static String pretty(String json) {
+        try {
+            Object parsed = GSON.fromJson(json, Object.class);
+            return GSON.toJson(parsed);
+        } catch (Exception e) {
+            // return original if not valid JSON
+            return json;
+        }
+    }
+
+    /**
+     * Print pretty JSON directly to console.
+     */
+    public static void print(String json) {
+        System.out.println(pretty(json));
+    }
+}

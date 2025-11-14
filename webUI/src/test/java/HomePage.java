@@ -5,16 +5,15 @@ import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
 
-@Epic("PeerPlay Web")
+@Epic("Web")
 @Feature("Home Page")
 public class HomePage extends BaseWebUITest {
 
 
     @Severity(SeverityLevel.NORMAL)
-    @Description("Search Wikipedia for the term 'playwright'")
     @Owner("Rony Levi")
     @Issue("JIRA-123")
-    @Test
+    @Test(description = "Search Wikipedia for the term 'playwright'")
     public static void shouldSearchWiki() {
         HomePageObjects home = new HomePageObjects(page);
         TestCasesObjects test = new TestCasesObjects(page);

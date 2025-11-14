@@ -34,6 +34,10 @@ public class HomePageObjects {
         );
     }
 
+    private Locator searchBox() {
+        return page.getByRole(
+                AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Search an example..."));
+    }
     // ---------- Actions / Assertions ----------
 
     /** Run accessibility scan on this page */

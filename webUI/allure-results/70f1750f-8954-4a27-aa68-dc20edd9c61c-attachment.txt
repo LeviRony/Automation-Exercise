@@ -1,1 +1,0 @@
-Serious/Critical accessibility violations: 3 (test not failed; monitoring only)

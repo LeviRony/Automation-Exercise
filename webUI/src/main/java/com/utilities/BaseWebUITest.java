@@ -2,7 +2,6 @@ package com.utilities;
 
 import com.microsoft.playwright.*;
 import org.testng.annotations.*;
-
 import static com.configurations.BaseUri.urlAutomationExercise;
 import static com.utilities.Ansi.*;
 
