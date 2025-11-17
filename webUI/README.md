@@ -43,7 +43,7 @@ HomePage.java
 2. Accessibility flag
 
 ```java
-protected static final String ENV_TYPE =
+private static final String ENV_TYPE =
         System.getProperty("tests.general.envType", "PROD");
 // Options: DEV | QA | STG | PROD
 
