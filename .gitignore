@@ -35,5 +35,10 @@ build/
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
+### Allure-Results ###
 .DS_Store
+/restAPI/allure-results/
+/webUI/allure-results/
+/mobile/allure-results/
+
+

@@ -88,7 +88,7 @@ public class PlaywrightApiClient {
         AllureLogger.step("Request data (GET): ", res);
         AllureLogger.step("Response body data (GET): ", body);
 
-        log.info("[GET   ] {} -> {} ({} ms)", url, res.status(), ms);
+        log.info(">>>  [GET] {} -> {} ({} ms)", url, res.status(), ms);
         log.debug("Response body (first 2KB): {}", truncate(body, 2048));
 
         Assert.assertEquals(res.status(), expectedStatus,

@@ -54,7 +54,6 @@
     </dependencies>
     <build>
         <plugins>
-            <!-- TestNG via Surefire -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -65,12 +64,10 @@
                         <include>**/*Test.java</include>
                     </includes>
                     <systemPropertyVariables>
-                        ${maven.multiModuleProjectDirectory}/common/target/allure-results
+                        ${maven.multiModuleProjectDirectory}/allure-results
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
-
-            <!-- Optional: Allure Maven plugin -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
