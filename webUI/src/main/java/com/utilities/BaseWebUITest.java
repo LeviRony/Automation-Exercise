@@ -10,6 +10,7 @@ import static com.utilities.Ansi.*;
 
 public class BaseWebUITest {
     protected static final CustomLogger log = CustomLogger.getLogger(CustomLogger.class);
+
     protected static Page page;
     protected static HomePageObjects home;
     protected static TestCasesObjects testCases;
