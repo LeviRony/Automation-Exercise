@@ -1,5 +1,4 @@
-import com.pageObjects.HomePageObjects;
-import com.pageObjects.TestCasesObjects;
+
 import com.utilities.BaseWebUITest;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
@@ -14,15 +13,12 @@ public class HomePage extends BaseWebUITest {
     @Owner("Rony Levi")
     @Issue("JIRA-123")
     @Test(description = "Search Wikipedia for the term 'playwright'")
-    public static void shouldSearchWiki() {
-        HomePageObjects home = new HomePageObjects(page);
-        TestCasesObjects test = new TestCasesObjects(page);
+    public void browseAndLogin() {
 
-        home.runAccessibilityScan()
-                .assertMarketingParagraphVisible()
+        home.runAccessibilityScan().assertMarketingParagraphVisible()
                 .goToTestCases();
-
-        test.runAccessibilityScan()
-                .assertMarketingParagraphVisible();
+        testCases.runAccessibilityScan().assertMarketingParagraphVisible();
+        signupLogin.login(home,"rony@mail.com", "1234");
     }
+
 }

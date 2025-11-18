@@ -12,7 +12,7 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 
 public class HomePageObjects {
 
-    private static final Logger log = LoggerFactory.getLogger(HomePageObjects.class);
+    private final Logger log = LoggerFactory.getLogger(HomePageObjects.class);
     private final Page page;
 
     public HomePageObjects(Page page) {
@@ -38,15 +38,34 @@ public class HomePageObjects {
         return page.getByRole(
                 AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Search an example..."));
     }
+
+    private Locator menuSignupLogin() {
+        return page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(" Signup / Login"));
+
+    }
+
+    private Locator menuLogout(){
+        return page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(" Logout"));
+    }
+
+
     // ---------- Actions / Assertions ----------
 
-    /** Run accessibility scan on this page */
+    public HomePageObjects logoutVisible() {
+        assertThat(menuLogout()).isVisible();
+        return this;
+    }
+    public HomePageObjects logoutClick() {
+        menuLogout().click();
+        return this;
+    }
+
     public HomePageObjects runAccessibilityScan() {
         AccessibilityUtils.runAxeScan(page);
         return this;
     }
 
-    /** Assert the marketing paragraph is visible and print its text */
+
     public HomePageObjects assertMarketingParagraphVisible() {
         Locator paragraph = marketingParagraph();
         assertThat(paragraph).isVisible();
@@ -55,9 +74,13 @@ public class HomePageObjects {
         return this;
     }
 
-    /** Click on "Test Cases" button */
     public HomePageObjects goToTestCases() {
         testCasesButton().click();
+        return this;
+    }
+
+    public HomePageObjects signupOrLogin() {
+        menuSignupLogin().click();
         return this;
     }
 }

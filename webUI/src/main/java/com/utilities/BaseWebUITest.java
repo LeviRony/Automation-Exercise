@@ -1,6 +1,7 @@
 package com.utilities;
 
 import com.microsoft.playwright.*;
+import com.pageObjects.*;
 import org.testng.annotations.*;
 import static com.configurations.BaseUri.urlAutomationExercise;
 import static com.utilities.Ansi.*;
@@ -12,10 +13,14 @@ public class BaseWebUITest {
     protected BrowserContext context;
     protected static Page page;
 
+    protected static HomePageObjects home;
+    protected static TestCasesObjects testCases;
+    protected static SignupLoginPageObjects signupLogin;
+
     @Parameters("browserName")
     @BeforeClass(alwaysRun = true)
     public void launchBrowser(@Optional("chromium") String browserName) {
-        System.out.println(BLUE + "<<<  Before class  >>> browser=" + browserName + RESET);
+        System.out.println(BLUE + "<<<  Before class  >>> Open Browser = " + browserName + RESET);
 
         playwright = Playwright.create();
 
@@ -52,6 +57,9 @@ public class BaseWebUITest {
         System.out.println(BLUE + "<<<  Before method >>>" + RESET);
         context = browser.newContext();
         page = context.newPage();
+        home = new HomePageObjects(page);
+        testCases = new TestCasesObjects(page);
+        signupLogin = new SignupLoginPageObjects(page);
         page.navigate(urlAutomationExercise());
     }
 
