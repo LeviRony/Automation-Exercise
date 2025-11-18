@@ -5,10 +5,14 @@ import com.utilities.JsonUtils;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
+import java.util.Map;
+
 
 @Epic("BACKEND")
 @Feature("Home Page")
 public class apitests extends BaseApiTest {
+
+    protected String token;
 
     @Severity(SeverityLevel.NORMAL)
     @Owner("Rony Levi")
@@ -16,6 +20,7 @@ public class apitests extends BaseApiTest {
     @Test(description = "GET Product List")
     public void testGetProductList() {
         String response = api.get(Endpoints.PRODUCT_LIST, 200);
+        String response2 = api.get(Endpoints.VERIFY_LOGIN, 200, Map.of("Authorization", token));
         System.out.println("Product List Response: ");
         JsonUtils.print(response);
     }
