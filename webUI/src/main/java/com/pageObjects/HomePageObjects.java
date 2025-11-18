@@ -5,6 +5,7 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import com.accessibility.AccessibilityUtils;
+import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,28 +45,32 @@ public class HomePageObjects {
 
     }
 
-    private Locator menuLogout(){
+    private Locator menuLogout() {
         return page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName(" Logout"));
     }
 
 
     // ---------- Actions / Assertions ----------
 
+    @Step("")
     public HomePageObjects logoutVisible() {
         assertThat(menuLogout()).isVisible();
         return this;
     }
+
+    @Step("")
     public HomePageObjects logoutClick() {
         menuLogout().click();
         return this;
     }
 
+    @Step("")
     public HomePageObjects runAccessibilityScan() {
         AccessibilityUtils.runAxeScan(page);
         return this;
     }
 
-
+    @Step("")
     public HomePageObjects assertMarketingParagraphVisible() {
         Locator paragraph = marketingParagraph();
         assertThat(paragraph).isVisible();
@@ -74,11 +79,13 @@ public class HomePageObjects {
         return this;
     }
 
+    @Step("")
     public HomePageObjects goToTestCases() {
         testCasesButton().click();
         return this;
     }
 
+    @Step("")
     public HomePageObjects signupOrLogin() {
         menuSignupLogin().click();
         return this;

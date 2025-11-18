@@ -12,9 +12,8 @@ public class HomePage extends BaseWebUITest {
     @Severity(SeverityLevel.NORMAL)
     @Owner("Rony Levi")
     @Issue("JIRA-123")
-    @Test(description = "Search Wikipedia for the term 'playwright'")
+    @Test(description = "Browse to homepage, and login to website'")
     public void browseAndLogin() {
-
         home.runAccessibilityScan().assertMarketingParagraphVisible()
                 .goToTestCases();
         testCases.runAccessibilityScan().assertMarketingParagraphVisible();

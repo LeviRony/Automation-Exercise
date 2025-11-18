@@ -1,5 +1,7 @@
 package com.utilities;
 
+import io.qameta.allure.Step;
+
 public class Ansi {
 
     public static final String RESET = "\u001B[0m";  // reset all styles
@@ -21,7 +23,7 @@ public class Ansi {
             log.info(RED + "This is red text" + RESET);
     */
 
-
+    @Step
     static String style(String text, String... codes) {
         StringBuilder sb = new StringBuilder();
         for (String c : codes) sb.append(c);

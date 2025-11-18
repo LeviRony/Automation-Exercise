@@ -4,6 +4,7 @@ import com.CustomLogger;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.accessibility.AccessibilityUtils;
+import io.qameta.allure.Step;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
@@ -24,11 +25,13 @@ public class TestCasesObjects {
 
     // ---------- Actions / Assertions ----------
 
-    /** Run accessibility scan on this page */
+    @Step("")
     public TestCasesObjects runAccessibilityScan() {
         AccessibilityUtils.runAxeScan(page);
         return this;
     }
+
+    @Step("")
     public TestCasesObjects assertMarketingParagraphVisible() {
         Locator paragraph = pageTitle();
         assertThat(paragraph).isVisible();

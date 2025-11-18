@@ -2,6 +2,7 @@ package com.utilities;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.qameta.allure.Step;
 
 public class JsonUtils {
 
@@ -25,9 +26,8 @@ public class JsonUtils {
         }
     }
 
-    /**
-     * Print pretty JSON directly to console.
-     */
+
+    @Step("Print pretty JSON directly to console.")
     public static void print(String json) {
         System.out.println(pretty(json));
     }
