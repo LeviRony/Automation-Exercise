@@ -1,29 +1,28 @@
 package com.utilities;
 
+import com.CustomLogger;
 import com.microsoft.playwright.*;
 import com.pageObjects.*;
 import org.testng.annotations.*;
+
 import static com.configurations.BaseUri.urlAutomationExercise;
 import static com.utilities.Ansi.*;
 
 public class BaseWebUITest {
-
-    protected Playwright playwright;
-    protected Browser browser;
-    protected BrowserContext context;
+    protected static final CustomLogger log = CustomLogger.getLogger(CustomLogger.class);
     protected static Page page;
-
     protected static HomePageObjects home;
     protected static TestCasesObjects testCases;
     protected static SignupLoginPageObjects signupLogin;
+    protected Playwright playwright;
+    protected Browser browser;
+    protected BrowserContext context;
 
     @Parameters("browserName")
     @BeforeClass(alwaysRun = true)
     public void launchBrowser(@Optional("chromium") String browserName) {
         System.out.println(BLUE + "<<<  Before class  >>> Open Browser = " + browserName + RESET);
-
         playwright = Playwright.create();
-
         BrowserType.LaunchOptions options = new BrowserType.LaunchOptions()
                 .setHeadless(false); // set true on CI if needed
 

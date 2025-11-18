@@ -1,4 +1,5 @@
 
+import com.CustomLogger;
 import com.utilities.BaseApiTest;
 import com.utilities.Endpoints;
 import com.utilities.JsonUtils;
@@ -6,6 +7,7 @@ import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
 import java.util.Map;
+
 
 
 @Epic("BACKEND")
@@ -20,6 +22,7 @@ public class apitests extends BaseApiTest {
     @Test(description = "GET Product List")
     public void testGetProductList() {
         String response = api.get(Endpoints.PRODUCT_LIST, 200);
+        log.info(response);
         String response2 = api.get(Endpoints.VERIFY_LOGIN, 200, Map.of("Authorization", token));
         System.out.println("Product List Response: ");
         JsonUtils.print(response);

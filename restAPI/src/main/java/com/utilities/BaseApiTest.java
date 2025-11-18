@@ -1,5 +1,6 @@
 package com.utilities;
 
+import com.CustomLogger;
 import com.configurations.BaseUri;
 import com.microsoft.playwright.APIRequest;
 import com.microsoft.playwright.APIRequestContext;
@@ -9,6 +10,7 @@ import org.testng.annotations.*;
 import static com.utilities.Ansi.*;
 
 public class BaseApiTest {
+    protected static final CustomLogger log = CustomLogger.getLogger(CustomLogger.class);
 
     protected Playwright playwright;
     protected APIRequestContext request;

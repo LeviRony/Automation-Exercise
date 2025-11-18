@@ -35,7 +35,7 @@ public class TestCasesObjects {
     public TestCasesObjects assertMarketingParagraphVisible() {
         Locator paragraph = pageTitle();
         assertThat(paragraph).isVisible();
-        System.out.println(paragraph.textContent());
+        log.info(paragraph.textContent());
         return this;
     }
 }

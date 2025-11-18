@@ -8,12 +8,12 @@ import static com.utilities.Ansi.*;
 public class CustomLogger {
     private final Logger log;
 
-    public static CustomLogger getLogger(Class<?> clazz) {
-        return new CustomLogger(clazz);
-    }
-
     private CustomLogger(Class<?> clazz) {
         this.log = LoggerFactory.getLogger(clazz);
+    }
+
+    public static CustomLogger getLogger(Class<?> clazz) {
+        return new CustomLogger(clazz);
     }
 
     public void info(String msg) {
