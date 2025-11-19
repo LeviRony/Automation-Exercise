@@ -85,9 +85,6 @@ public class PlaywrightApiClient {
 
         String body = res.text();
 
-        AllureLogger.step("Request data (GET): ", res);
-        AllureLogger.step("Response body data (GET): ", body);
-
         log.info(">>>  [GET] {} -> {} ({} ms)", url, res.status(), ms);
         log.debug("Response body (first 2KB): {}", truncate(body, 2048));
 
@@ -124,9 +121,6 @@ public class PlaywrightApiClient {
 
         String body = res.text();
 
-        AllureLogger.step("Request data (POST JSON): ", res);
-        AllureLogger.step("Response body data (POST JSON): ", body);
-
         log.info("[POST J] {} -> {} ({} ms)", url, res.status(), ms);
         log.debug("Response body (first 2KB): {}", truncate(body, 2048));
 
@@ -159,9 +153,6 @@ public class PlaywrightApiClient {
         long ms = (System.nanoTime() - t0) / 1_000_000;
 
         String body = res.text();
-
-        AllureLogger.step("Request data (POST form): ", res);
-        AllureLogger.step("Response body data (POST form): ", body);
 
         log.info("[POST F] {} -> {} ({} ms)", url, res.status(), ms);
         log.debug("Response body (first 2KB): {}", truncate(body, 2048));
@@ -199,9 +190,6 @@ public class PlaywrightApiClient {
 
         String body = res.text();
 
-        AllureLogger.step("Request data (PUT JSON): ", res);
-        AllureLogger.step("Response body data (PUT JSON): ", body);
-
         log.info("[PUT  J] {} -> {} ({} ms)", url, res.status(), ms);
         log.debug("Response body (first 2KB): {}", truncate(body, 2048));
 
@@ -238,9 +226,6 @@ public class PlaywrightApiClient {
 
         String body = res.text();
 
-        AllureLogger.step("Request data (PATCH JSON): ", res);
-        AllureLogger.step("Response body data (PATCH JSON): ", body);
-
         log.info("[PATCH] {} -> {} ({} ms)", url, res.status(), ms);
         log.debug("Response body (first 2KB): {}", truncate(body, 2048));
 
@@ -267,8 +252,6 @@ public class PlaywrightApiClient {
         APIResponse res = request.delete(url, opts);
         long ms = (System.nanoTime() - t0) / 1_000_000;
         String body = res.text();
-        AllureLogger.step("Request data (DELETE): ", res);
-        AllureLogger.step("Response body data (DELETE): ", body);
         log.info("[DEL  ] {} -> {} ({} ms)", url, res.status(), ms);
         log.debug("Response body (first 2KB): {}", truncate(body, 2048));
         Assert.assertEquals(res.status(), expectedStatus,

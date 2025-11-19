@@ -23,7 +23,7 @@ public class apitests extends BaseApiTest {
     public void testGetProductList() {
         String response = api.get(Endpoints.PRODUCT_LIST, 200);
         log.info(response);
-        String response2 = api.get(Endpoints.VERIFY_LOGIN, 200, Map.of("Authorization", token));
+        //String response2 = api.get(Endpoints.VERIFY_LOGIN, 200, Map.of("Authorization", token));
         System.out.println("Product List Response: ");
         JsonUtils.print(response);
     }

@@ -12,5 +12,7 @@ public final class AllureLogger {
         System.out.println("[ALLURE] " + message);
     }
 
-    // Example: AllureLogger.step("User logged in with email: {0}", email);
+    /*
+      Example: AllureLogger.step("User logged in with email: {0}", email);
+    */
 }
