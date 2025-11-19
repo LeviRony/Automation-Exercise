@@ -12,6 +12,7 @@ import org.testng.Assert;
 
 import java.util.Map;
 
+import static com.utilities.Ansi.*;
 import static com.utilities.Headers.*;
 
 public class PlaywrightApiClient {
@@ -86,7 +87,7 @@ public class PlaywrightApiClient {
         String body = res.text();
 
         log.info(">>>  [GET] {} -> {} ({} ms)", url, res.status(), ms);
-        log.debug("Response body (first 2KB): {}", truncate(body, 2048));
+        //log.debug(ORANGE + "Response body (first 2KB): {}", truncate(body, 2048) + RESET);
 
         Assert.assertEquals(res.status(), expectedStatus,
                 "Unexpected HTTP status for GET " + url);
@@ -122,7 +123,6 @@ public class PlaywrightApiClient {
         String body = res.text();
 
         log.info("[POST J] {} -> {} ({} ms)", url, res.status(), ms);
-        log.debug("Response body (first 2KB): {}", truncate(body, 2048));
 
         Assert.assertEquals(res.status(), expectedStatus,
                 "Unexpected HTTP status for POST JSON " + url);
@@ -155,7 +155,6 @@ public class PlaywrightApiClient {
         String body = res.text();
 
         log.info("[POST F] {} -> {} ({} ms)", url, res.status(), ms);
-        log.debug("Response body (first 2KB): {}", truncate(body, 2048));
 
         Assert.assertEquals(res.status(), expectedStatus,
                 "Unexpected HTTP status for POST form " + url);
@@ -191,8 +190,6 @@ public class PlaywrightApiClient {
         String body = res.text();
 
         log.info("[PUT  J] {} -> {} ({} ms)", url, res.status(), ms);
-        log.debug("Response body (first 2KB): {}", truncate(body, 2048));
-
         Assert.assertEquals(res.status(), expectedStatus,
                 "Unexpected HTTP status for PUT JSON " + url);
 
@@ -227,7 +224,6 @@ public class PlaywrightApiClient {
         String body = res.text();
 
         log.info("[PATCH] {} -> {} ({} ms)", url, res.status(), ms);
-        log.debug("Response body (first 2KB): {}", truncate(body, 2048));
 
         Assert.assertEquals(res.status(), expectedStatus,
                 "Unexpected HTTP status for PATCH JSON " + url);
@@ -248,14 +244,17 @@ public class PlaywrightApiClient {
                          Map<String, String> headers) {
         String url = resolve(urlOrPath);
         RequestOptions opts = headers != null ? withHeaders(headers) : RequestOptions.create();
+
         long t0 = System.nanoTime();
         APIResponse res = request.delete(url, opts);
         long ms = (System.nanoTime() - t0) / 1_000_000;
+
         String body = res.text();
+
         log.info("[DEL  ] {} -> {} ({} ms)", url, res.status(), ms);
-        log.debug("Response body (first 2KB): {}", truncate(body, 2048));
         Assert.assertEquals(res.status(), expectedStatus,
                 "Unexpected HTTP status for DELETE " + url);
+
         return body;
     }
 }
