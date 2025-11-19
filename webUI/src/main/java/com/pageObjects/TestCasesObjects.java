@@ -17,21 +17,27 @@ public class TestCasesObjects {
         this.page = page;
     }
 
-    // ---------- Locators ----------
+    // =========================================================
+    ///                   Locators
+    // =========================================================
 
     private Locator pageTitle() {
         return page.locator("b");
     }
 
-    // ---------- Actions / Assertions ----------
 
-    @Step("")
+    // =========================================================
+    ///              Actions / Assertions
+    // =========================================================
+
+
+    @Step("Run accessibility scan on the current page (Axe-core)")
     public TestCasesObjects runAccessibilityScan() {
         AccessibilityUtils.runAxeScan(page);
         return this;
     }
 
-    @Step("")
+    @Step("Validate that the marketing paragraph (bold text) is visible on the page")
     public TestCasesObjects assertMarketingParagraphVisible() {
         Locator paragraph = pageTitle();
         assertThat(paragraph).isVisible();

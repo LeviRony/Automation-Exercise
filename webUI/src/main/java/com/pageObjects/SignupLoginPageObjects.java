@@ -3,11 +3,9 @@ package com.pageObjects;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
-import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-
 
 public class SignupLoginPageObjects {
 
@@ -17,8 +15,9 @@ public class SignupLoginPageObjects {
         this.page = page;
     }
 
-    // ---------- Locators ----------
-
+    // =========================================================
+    ///                   Locators
+    // =========================================================
     private Locator signupLoginSection() {
         return page.getByRole(
                 AriaRole.HEADING,
@@ -46,34 +45,37 @@ public class SignupLoginPageObjects {
         );
     }
 
-    // ---------- Actions / Assertions ----------
-    @Step
+    // =========================================================
+    ///              Actions / Assertions
+    // =========================================================
+
+    @Step("Verify that the login section title is visible on the page")
     public SignupLoginPageObjects assertLoginSectionVisible() {
         assertThat(signupLoginSection()).isVisible();
         return this;
     }
 
-    @Step("Entering user email and verify the string is shown at the email field & check that field isn't empty after fill")
+    @Step("Fill the email field with '{email}' and verify the value is correctly displayed")
     public SignupLoginPageObjects fillEmail(String email) {
         emailAddressInput().fill(email);
         assertThat(emailAddressInput()).hasValue(email);
         return this;
     }
 
-    @Step("Entering user password and verify the string is shown at the password field & check that field isn't empty after fill")
+    @Step("Fill the password field and verify it is not left empty")
     public SignupLoginPageObjects fillPassword(String password) {
         passwordInput().fill(password);
-        assertThat(passwordInput()).not().hasValue(""); //check that field is not empty
+        assertThat(passwordInput()).not().hasValue(""); // check that field is not empty
         return this;
     }
 
-    @Step("Clicking the 'Login' button")
+    @Step("Click the Login button to submit the form")
     public SignupLoginPageObjects clickLogin() {
         loginButton().click();
         return this;
     }
 
-    @Step("Login to website with email address and password, during the ")
+    @Step("Perform full login flow using email '{email}' and password")
     public SignupLoginPageObjects login(HomePageObjects home, String email, String password) {
         home.signupOrLogin();
         assertLoginSectionVisible();

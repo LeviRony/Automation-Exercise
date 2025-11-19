@@ -3,13 +3,17 @@ package com.configurations;
 
 public class BaseUri {
 
-    protected static final String ENV_TYPE =
-            System.getProperty("tests.general.envType", "PROD");
-    // Options are: DEV | QA | STG | PROD
-
+    // =========================================================
+    ///           Options are: true | false
+    // =========================================================
     public static final String RUN_ACCESSIBILITY_TEST =
             System.getProperty("tests.general.accessibility", "false");
-    // true or false
+
+    // =========================================================
+    ///           Options are: DEV | QA | STG | PROD
+    // =========================================================
+    protected static final String ENV_TYPE =
+            System.getProperty("tests.general.envType", "PROD");
 
     public static String urlAutomationExercise() {
         return switch (ENV_TYPE) {

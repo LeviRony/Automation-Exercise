@@ -1,6 +1,5 @@
 package com.utilities;
 
-import com.allureReport.AllureLogger;
 import com.microsoft.playwright.APIRequestContext;
 import com.microsoft.playwright.APIResponse;
 import com.microsoft.playwright.options.FormData;
@@ -12,7 +11,6 @@ import org.testng.Assert;
 
 import java.util.Map;
 
-import static com.utilities.Ansi.*;
 import static com.utilities.Headers.*;
 
 public class PlaywrightApiClient {
@@ -28,9 +26,8 @@ public class PlaywrightApiClient {
     }
 
     // =========================================================
-    //                      Helpers
+    ///                      Helpers
     // =========================================================
-
     private String resolve(String urlOrPath) {
         if (urlOrPath.startsWith(HTTP) || urlOrPath.startsWith(HTTPS)) {
             return urlOrPath;
@@ -68,9 +65,8 @@ public class PlaywrightApiClient {
     }
 
     // =========================================================
-    //                          GET
+    ///                          GET
     // =========================================================
-
     public String get(String urlOrPath, int expectedStatus) {
         return get(urlOrPath, expectedStatus, null);
     }
@@ -96,9 +92,8 @@ public class PlaywrightApiClient {
     }
 
     // =========================================================
-    //                     POST JSON
+    ///                     POST JSON
     // =========================================================
-
     public String postJson(String urlOrPath, String jsonBody, int expectedStatus) {
         return postJson(urlOrPath, jsonBody, expectedStatus, null);
     }
@@ -131,9 +126,8 @@ public class PlaywrightApiClient {
     }
 
     // =========================================================
-    //            POST x-www-form-urlencoded (Form)
+    ///            POST x-www-form-urlencoded (Form)
     // =========================================================
-
     public String postForm(String urlOrPath, Map<String, String> formFields,
                            int expectedStatus) {
         return postForm(urlOrPath, formFields, expectedStatus, null);
@@ -163,9 +157,8 @@ public class PlaywrightApiClient {
     }
 
     // =========================================================
-    //                        PUT JSON
+    ///                        PUT JSON
     // =========================================================
-
     public String putJson(String urlOrPath, String jsonBody, int expectedStatus) {
         return putJson(urlOrPath, jsonBody, expectedStatus, null);
     }
@@ -197,9 +190,8 @@ public class PlaywrightApiClient {
     }
 
     // =========================================================
-    //                       PATCH JSON
+    ///                       PATCH JSON
     // =========================================================
-
     public String patchJson(String urlOrPath, String jsonBody, int expectedStatus) {
         return patchJson(urlOrPath, jsonBody, expectedStatus, null);
     }
@@ -232,9 +224,8 @@ public class PlaywrightApiClient {
     }
 
     // =========================================================
-    //                         DELETE
+    ///                         DELETE
     // =========================================================
-
     public String delete(String urlOrPath, int expectedStatus) {
         return delete(urlOrPath, expectedStatus, null);
     }
