@@ -16,13 +16,13 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
         </dependency>
+
+        <!-- Allure core for attachments in main code -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- Allure core for attachments in main code -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-java-commons</artifactId>
@@ -52,6 +52,7 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

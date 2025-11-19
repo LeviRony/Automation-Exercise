@@ -175,7 +175,7 @@ public class Headers {
 
 @Epic("BACKEND")
 @Feature("Home Page")
-public class apitests extends BaseApiTest {
+public class ApiTests extends BaseApiTest {
 
     protected String token;
 
