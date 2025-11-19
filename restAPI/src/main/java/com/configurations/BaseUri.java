@@ -5,7 +5,7 @@ public class BaseUri {
 
     public static final String ENV_TYPE =
             System.getProperty("tests.general.envType", "PROD");
-    // Options are: DEV | QA | STG | PROD
+            /// Options are: DEV | QA | STG | PROD
 
     public static String urlAutomationExercise() {
         return switch (ENV_TYPE) {
