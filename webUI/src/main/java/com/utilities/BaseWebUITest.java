@@ -8,7 +8,7 @@ import org.testng.annotations.*;
 import static com.configurations.BaseUri.urlAutomationExercise;
 import static com.utilities.Ansi.*;
 
-public class BaseWebUITest {
+public class BaseWebUITest (Page page){
     protected static final CustomLogger log = CustomLogger.getLogger(CustomLogger.class);
 
     protected static Page page;

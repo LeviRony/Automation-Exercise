@@ -38,10 +38,9 @@ public class TestCasesObjects {
     }
 
     @Step("Validate that the marketing paragraph (bold text) is visible on the page")
-    public TestCasesObjects assertMarketingParagraphVisible() {
+    public void assertMarketingParagraphVisible() {
         Locator paragraph = pageTitle();
         assertThat(paragraph).isVisible();
         log.info(paragraph.textContent());
-        return this;
     }
 }

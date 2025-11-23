@@ -7,13 +7,7 @@ import io.qameta.allure.Step;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class SignupLoginPageObjects {
-
-    private final Page page;
-
-    public SignupLoginPageObjects(Page page) {
-        this.page = page;
-    }
+public record SignupLoginPageObjects (Page page){
 
     // =========================================================
     ///                   Locators
@@ -50,29 +44,25 @@ public class SignupLoginPageObjects {
     // =========================================================
 
     @Step("Verify that the login section title is visible on the page")
-    public SignupLoginPageObjects assertLoginSectionVisible() {
+    public void assertLoginSectionVisible() {
         assertThat(signupLoginSection()).isVisible();
-        return this;
     }
 
     @Step("Fill the email field with '{email}' and verify the value is correctly displayed")
-    public SignupLoginPageObjects fillEmail(String email) {
+    public void fillEmail(String email) {
         emailAddressInput().fill(email);
         assertThat(emailAddressInput()).hasValue(email);
-        return this;
     }
 
     @Step("Fill the password field and verify it is not left empty")
-    public SignupLoginPageObjects fillPassword(String password) {
+    public void fillPassword(String password) {
         passwordInput().fill(password);
         assertThat(passwordInput()).not().hasValue(""); // check that field is not empty
-        return this;
     }
 
     @Step("Click the Login button to submit the form")
-    public SignupLoginPageObjects clickLogin() {
+    public void clickLogin() {
         loginButton().click();
-        return this;
     }
 
     @Step("Perform full login flow using email '{email}' and password")

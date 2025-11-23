@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 @Feature("Home Page")
 public class ApiTests extends BaseApiTest {
 
-    protected String token;
 
     @Severity(SeverityLevel.NORMAL)
     @Owner("Rony Levi")
@@ -22,4 +21,5 @@ public class ApiTests extends BaseApiTest {
         System.out.println("Product List Response: ");
         JsonUtils.print(response);
     }
+
 }

@@ -2,6 +2,8 @@ package com.utilities;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.qameta.allure.Step;
 
 public class JsonUtils {
@@ -31,4 +33,14 @@ public class JsonUtils {
     public static void print(String json) {
         System.out.println(pretty(json));
     }
+
+   @Step
+    public static String get(String json, String key) {
+        try {
+            JsonObject obj = JsonParser.parseString(json).getAsJsonObject();
+            return obj.get(key).getAsString();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to extract key '" + key + "' from JSON:\n" + json, e);
+        }
+        }
 }

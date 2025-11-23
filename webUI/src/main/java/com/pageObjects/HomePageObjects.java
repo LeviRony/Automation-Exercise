@@ -11,14 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class HomePageObjects {
+public record HomePageObjects (Page page){
 
-    private final Logger log = LoggerFactory.getLogger(HomePageObjects.class);
-    private final Page page;
-
-    public HomePageObjects(Page page) {
-        this.page = page;
-    }
+    private static final Logger log = LoggerFactory.getLogger(HomePageObjects.class);
 
     // =========================================================
     ///                   Locators
