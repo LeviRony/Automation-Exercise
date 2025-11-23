@@ -1,4 +1,3 @@
-
 import com.utilities.BaseWebUITest;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
