@@ -21,7 +21,7 @@ public class PlaywrightApiClient {
     private final APIRequestContext request;
     private final String baseUrl;
 
-    // ThreadLocal default headers so each parallel thread uses its own Bearer token
+    // ThreadLocal default headers (Bearer token or others)
     private final ThreadLocal<Map<String, String>> defaultHeaders = new ThreadLocal<>();
 
     public PlaywrightApiClient(APIRequestContext request, String baseUrl) {
@@ -29,9 +29,10 @@ public class PlaywrightApiClient {
         this.baseUrl = baseUrl != null ? baseUrl : "";
     }
 
-    /**
-     * Set default Authorization Bearer token for all requests in THIS thread
-     */
+    // =========================================================
+    //                    Header Helpers
+    // =========================================================
+
     public void setBearerToken(String token) {
         if (token == null || token.isBlank()) {
             defaultHeaders.remove();
@@ -40,37 +41,13 @@ public class PlaywrightApiClient {
         }
     }
 
-    // =========================================================
-
-    ///                      Helpers
-    // =========================================================
-    private String resolve(String urlOrPath) {
-        if (urlOrPath.startsWith(HTTP) || urlOrPath.startsWith(HTTPS)) {
-            return urlOrPath;
-        }
-        if (baseUrl.isEmpty()) {
-            return urlOrPath;
-        }
-        if (baseUrl.endsWith("/") && urlOrPath.startsWith("/")) {
-            return baseUrl + urlOrPath.substring(1);
-        }
-        if (!baseUrl.endsWith("/") && !urlOrPath.startsWith("/")) {
-            return baseUrl + "/" + urlOrPath;
-        }
-        return baseUrl + urlOrPath;
-    }
-
     private RequestOptions withHeaders(Map<String, String> headers) {
         RequestOptions opts = RequestOptions.create();
 
         Map<String, String> defaults = defaultHeaders.get();
-        if (defaults != null) {
-            defaults.forEach(opts::setHeader);
-        }
+        if (defaults != null) defaults.forEach(opts::setHeader);
 
-        if (headers != null) {
-            headers.forEach(opts::setHeader);
-        }
+        if (headers != null) headers.forEach(opts::setHeader);
 
         return opts;
     }
@@ -83,15 +60,36 @@ public class PlaywrightApiClient {
     }
 
     // =========================================================
-
-    ///                      GET
+    //                      URL Resolver
     // =========================================================
+
+    private String resolve(String urlOrPath) {
+        if (urlOrPath.startsWith(HTTP) || urlOrPath.startsWith(HTTPS))
+            return urlOrPath;
+
+        if (baseUrl.isEmpty())
+            return urlOrPath;
+
+        if (baseUrl.endsWith("/") && urlOrPath.startsWith("/"))
+            return baseUrl + urlOrPath.substring(1);
+
+        if (!baseUrl.endsWith("/") && !urlOrPath.startsWith("/"))
+            return baseUrl + "/" + urlOrPath;
+
+        return baseUrl + urlOrPath;
+    }
+
+    // =========================================================
+    //                         GET
+    // =========================================================
+
     public String get(String urlOrPath, int expectedStatus) {
         return get(urlOrPath, expectedStatus, null);
     }
 
     @Step("GET {urlOrPath} expects {expectedStatus}")
     public String get(String urlOrPath, int expectedStatus, Map<String, String> headers) {
+
         String url = resolve(urlOrPath);
         RequestOptions opts = withHeaders(headers);
 
@@ -109,9 +107,9 @@ public class PlaywrightApiClient {
     }
 
     // =========================================================
-
-    ///                  POST JSON (string)
+    //                        POST JSON
     // =========================================================
+
     public String postJson(String urlOrPath, String jsonBody, int expectedStatus) {
         return postJson(urlOrPath, jsonBody, expectedStatus, null);
     }
@@ -125,9 +123,8 @@ public class PlaywrightApiClient {
         RequestOptions opts = withHeaders(headers);
         opts.setData(jsonBody);
 
-        if (!headersContainsContentTypeJson(headers)) {
+        if (!headersContainsContentTypeJson(headers))
             opts.setHeader(CONTENT_TYPE, APPLICATION_JSON);
-        }
 
         long t0 = System.nanoTime();
         APIResponse res = request.post(url, opts);
@@ -137,15 +134,15 @@ public class PlaywrightApiClient {
         log.info("[POST J] {} -> {} ({} ms)", url, res.status(), ms);
 
         Assert.assertEquals(res.status(), expectedStatus,
-                "Unexpected HTTP status for POST JSON " + url);
+                "Unexpected status for POST JSON " + url);
 
         return body;
     }
 
     // =========================================================
-
-    /// POST (Map body)  <-- You need this for loginAndStoreToken()
+    //                     POST MAP (JSON)
     // =========================================================
+
     public String post(String urlOrPath, int expectedStatus, Map<String, Object> body) {
         return post(urlOrPath, expectedStatus, body, null);
     }
@@ -157,11 +154,10 @@ public class PlaywrightApiClient {
         String url = resolve(urlOrPath);
 
         RequestOptions opts = withHeaders(headers);
-        opts.setData(body); // Playwright Java accepts Map as JSON
+        opts.setData(body); // Playwright will serialize Map as JSON
 
-        if (!headersContainsContentTypeJson(headers)) {
+        if (!headersContainsContentTypeJson(headers))
             opts.setHeader(CONTENT_TYPE, APPLICATION_JSON);
-        }
 
         long t0 = System.nanoTime();
         APIResponse res = request.post(url, opts);
@@ -171,17 +167,16 @@ public class PlaywrightApiClient {
         log.info("[POST  ] {} -> {} ({} ms)", url, res.status(), ms);
 
         Assert.assertEquals(res.status(), expectedStatus,
-                "Unexpected HTTP status for POST " + url);
+                "Unexpected status for POST " + url);
 
         return resBody;
     }
 
     // =========================================================
-
-    ///                      POST Form
+    //                      POST FORM-DATA
     // =========================================================
-    public String postForm(String urlOrPath, Map<String, String> formFields,
-                           int expectedStatus) {
+
+    public String postForm(String urlOrPath, Map<String, String> formFields, int expectedStatus) {
         return postForm(urlOrPath, formFields, expectedStatus, null);
     }
 
@@ -192,8 +187,10 @@ public class PlaywrightApiClient {
         String url = resolve(urlOrPath);
 
         RequestOptions opts = withHeaders(headers);
+
         FormData form = FormData.create();
         formFields.forEach(form::set);
+
         opts.setForm(form);
 
         long t0 = System.nanoTime();
@@ -204,15 +201,15 @@ public class PlaywrightApiClient {
         log.info("[POST F] {} -> {} ({} ms)", url, res.status(), ms);
 
         Assert.assertEquals(res.status(), expectedStatus,
-                "Unexpected HTTP status for POST form " + url);
+                "Unexpected status for POST form " + url);
 
         return body;
     }
 
     // =========================================================
-
-    ///                      PUT JSON
+    //                         PUT JSON
     // =========================================================
+
     public String putJson(String urlOrPath, String jsonBody, int expectedStatus) {
         return putJson(urlOrPath, jsonBody, expectedStatus, null);
     }
@@ -226,9 +223,8 @@ public class PlaywrightApiClient {
         RequestOptions opts = withHeaders(headers);
         opts.setData(jsonBody);
 
-        if (!headersContainsContentTypeJson(headers)) {
+        if (!headersContainsContentTypeJson(headers))
             opts.setHeader(CONTENT_TYPE, APPLICATION_JSON);
-        }
 
         long t0 = System.nanoTime();
         APIResponse res = request.put(url, opts);
@@ -238,15 +234,15 @@ public class PlaywrightApiClient {
         log.info("[PUT  J] {} -> {} ({} ms)", url, res.status(), ms);
 
         Assert.assertEquals(res.status(), expectedStatus,
-                "Unexpected HTTP status for PUT JSON " + url);
+                "Unexpected status for PUT JSON " + url);
 
         return body;
     }
 
     // =========================================================
-
-    ///                     PATCH JSON
+    //                        PATCH JSON
     // =========================================================
+
     public String patchJson(String urlOrPath, String jsonBody, int expectedStatus) {
         return patchJson(urlOrPath, jsonBody, expectedStatus, null);
     }
@@ -260,9 +256,8 @@ public class PlaywrightApiClient {
         RequestOptions opts = withHeaders(headers);
         opts.setData(jsonBody);
 
-        if (!headersContainsContentTypeJson(headers)) {
+        if (!headersContainsContentTypeJson(headers))
             opts.setHeader(CONTENT_TYPE, APPLICATION_JSON);
-        }
 
         long t0 = System.nanoTime();
         APIResponse res = request.patch(url, opts);
@@ -272,15 +267,15 @@ public class PlaywrightApiClient {
         log.info("[PATCH] {} -> {} ({} ms)", url, res.status(), ms);
 
         Assert.assertEquals(res.status(), expectedStatus,
-                "Unexpected HTTP status for PATCH JSON " + url);
+                "Unexpected status for PATCH JSON " + url);
 
         return body;
     }
 
     // =========================================================
-
-    ///                      DELETE
+    //                          DELETE
     // =========================================================
+
     public String delete(String urlOrPath, int expectedStatus) {
         return delete(urlOrPath, expectedStatus, null);
     }
@@ -300,8 +295,17 @@ public class PlaywrightApiClient {
         log.info("[DEL  ] {} -> {} ({} ms)", url, res.status(), ms);
 
         Assert.assertEquals(res.status(), expectedStatus,
-                "Unexpected HTTP status for DELETE " + url);
+                "Unexpected status for DELETE " + url);
 
         return body;
+    }
+
+    /**
+     * Dispose the underlying APIRequestContext (used in parallel teardown).
+     */
+    public void disposeContext() {
+        if (request != null) {
+            request.dispose();
+        }
     }
 }

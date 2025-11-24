@@ -1,15 +1,15 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="Playwright API Suite" verbose="1" parallel="false">
+<suite name="Playwright API Suite"
+       parallel="methods"
+       thread-count="4">
 
     <test name="Playwright API Tests">
-        <!-- option by test type or class name -->
         <groups>
             <run>
                 <include name="Sanity"/>
             </run>
         </groups>
         <classes>
-            <!-- Your test class as seen in the stack trace -->
             <class name="ApiTests"/>
         </classes>
     </test>
