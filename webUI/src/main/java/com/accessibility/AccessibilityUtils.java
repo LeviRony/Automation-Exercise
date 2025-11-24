@@ -69,7 +69,7 @@ public final class AccessibilityUtils {
             AllureAttachments.attachText("Accessibility Violations Summary", summary.toString());
             boolean strictMode = Boolean.parseBoolean(System.getProperty("a11y.strict", RUN_ACCESSIBILITY_TEST));
 
-            // ==== CONSOLE OUTPUT ====
+            // ==== CONSOLE OUTPUTS ====
             System.out.println("\n===============================");
             System.out.println(" A11Y Accessibility Report");
             System.out.println("===============================");
@@ -90,12 +90,10 @@ public final class AccessibilityUtils {
             }
 
             if (strictMode) {
-                // STRICT MODE: fail build if blocking issues exist
                 if (blockingCount > 0) {
                     Assertions.fail("Blocking accessibility violations (serious/critical): " + blockingCount);
                 }
             } else {
-                // NON-STRICT MODE: attach, but do not fail
                 if (blockingCount > 0) {
                     AllureAttachments.attachText(
                             "Accessibility Blocking Count",

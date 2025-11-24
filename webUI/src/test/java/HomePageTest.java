@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 @Epic("Web")
 @Feature("Home Page")
-public class HomePage extends BaseWebUITest {
+public class HomePageTest extends BaseWebUITest {
 
 
     @Severity(SeverityLevel.NORMAL)
