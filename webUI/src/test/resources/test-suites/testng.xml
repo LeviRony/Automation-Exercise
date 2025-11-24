@@ -7,7 +7,7 @@
     <test name="Chromium Tests">
         <parameter name="browserName" value="chromium"/>
         <classes>
-            <class name="HomePage"/>
+            <class name="HomePageTest"/>
         </classes>
     </test>
 
@@ -15,7 +15,7 @@
     <test name="Firefox Tests">
         <parameter name="browserName" value="firefox"/>
         <classes>
-            <class name="HomePage"/>
+            <class name="HomePageTest"/>
         </classes>
     </test>
 
@@ -23,7 +23,7 @@
     <test name="WebKit Tests">
         <parameter name="browserName" value="webkit"/>
         <classes>
-            <class name="HomePage"/>
+            <class name="HomePageTest"/>
         </classes>
     </test>
 

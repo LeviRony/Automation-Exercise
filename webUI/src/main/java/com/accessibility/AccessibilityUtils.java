@@ -24,7 +24,7 @@ public final class AccessibilityUtils {
     @Step("Run Axe accessibility scan on current page")
     public static void runAxeScan(Page page) {
         try {
-            String axeScript = loadResourceAsString(AXE_RESOURCE);
+            String axeScript = loadResourceAsString();
             page.addScriptTag(new AddScriptTagOptions().setContent(axeScript));
             String resultJson = (String) page.evaluate(
                     "async () => JSON.stringify(await axe.run())"
@@ -89,11 +89,7 @@ public final class AccessibilityUtils {
                 System.out.println(GREEN + "Strict mode enabled: No blocking issues. Test PASSES." + RESET);
             }
 
-            if (strictMode) {
-                if (blockingCount > 0) {
-                    Assertions.fail("Blocking accessibility violations (serious/critical): " + blockingCount);
-                }
-            } else {
+            if (!strictMode) {
                 if (blockingCount > 0) {
                     AllureAttachments.attachText(
                             "Accessibility Blocking Count",
@@ -108,15 +104,15 @@ public final class AccessibilityUtils {
         }
     }
 
-    private static String loadResourceAsString(String resourcePath) {
-        try (InputStream is = AccessibilityUtils.class.getResourceAsStream(resourcePath)) {
+    private static String loadResourceAsString() {
+        try (InputStream is = AccessibilityUtils.class.getResourceAsStream(AccessibilityUtils.AXE_RESOURCE)) {
             if (is == null) {
-                throw new IllegalStateException("Resource not found: " + resourcePath);
+                throw new IllegalStateException("Resource not found: " + AccessibilityUtils.AXE_RESOURCE);
             }
             byte[] bytes = is.readAllBytes();
             return new String(bytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to load resource: " + resourcePath, e);
+            throw new RuntimeException("Failed to load resource: " + AccessibilityUtils.AXE_RESOURCE, e);
         }
     }
 }

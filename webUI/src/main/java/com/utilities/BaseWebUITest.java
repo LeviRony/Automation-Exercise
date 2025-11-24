@@ -37,7 +37,7 @@ public class BaseWebUITest {
             case "webkit":
                 browser = playwright.webkit().launch(options);
                 break;
-            /// >>>   FYI Edge is using Chromium engine
+
 //            case "edge":
 //                browser = playwright.chromium().launch(
 //                        options.setChannel("msedge")

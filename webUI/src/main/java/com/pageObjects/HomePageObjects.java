@@ -28,7 +28,7 @@ public record HomePageObjects (Page page){
     private Locator testCasesButton() {
         return page.getByRole(
                 AriaRole.BUTTON,
-                new Page.GetByRoleOptions().setName("Clicking button")
+                new Page.GetByRoleOptions().setName("Test Cases")
         );
     }
 
@@ -76,8 +76,9 @@ public record HomePageObjects (Page page){
     }
 
     @Step("Navigate to the 'Test Cases' page")
-    public void goToTestCases() {
+    public HomePageObjects goToTestCases() {
         testCasesButton().click();
+        return this;
     }
 
     @Step("Open the Signup / Login page from the main menu")
