@@ -28,7 +28,7 @@ public record HomePageObjects (Page page){
     private Locator testCasesButton() {
         return page.getByRole(
                 AriaRole.BUTTON,
-                new Page.GetByRoleOptions().setName("Test Cases")
+                new Page.GetByRoleOptions().setName("Clicking button")
         );
     }
 
@@ -50,9 +50,8 @@ public record HomePageObjects (Page page){
     // =========================================================
 
     @Step("Verify that the 'Logout' menu item is visible on the page")
-    public HomePageObjects logoutVisible() {
+    public void logoutVisible() {
         assertThat(menuLogout()).isVisible();
-        return this;
     }
 
     @Step("Click on the 'Logout' menu item")
@@ -77,14 +76,12 @@ public record HomePageObjects (Page page){
     }
 
     @Step("Navigate to the 'Test Cases' page")
-    public HomePageObjects goToTestCases() {
+    public void goToTestCases() {
         testCasesButton().click();
-        return this;
     }
 
     @Step("Open the Signup / Login page from the main menu")
-    public HomePageObjects signupOrLogin() {
+    public void signupOrLogin() {
         menuSignupLogin().click();
-        return this;
     }
 }
